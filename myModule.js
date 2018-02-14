@@ -24,8 +24,9 @@ function logger(){
 
 function firebaseData(){
     var db = admin.database();
-    var ref = db.ref("/post");
+    var ref = db.ref("/admin_data");
     ref.once("value", function(snapshot) {
       console.log(snapshot.val());
+      //return snapshot;
     });
 }
