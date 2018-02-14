@@ -1,0 +1,20 @@
+{
+  "name": "kaema",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Server.js",
+  "dependencies": {
+    "firebase-admin": "^5.8.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://jithendra@kaema.scm.azurewebsites.net:443/Kaema.git"
+  },
+  "author": "Jithendra Thenuwara",
+  "license": "ISC"
+}
