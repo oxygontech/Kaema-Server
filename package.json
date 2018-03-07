@@ -4,7 +4,9 @@
   "description": "",
   "main": "Server.js",
   "dependencies": {
-    "firebase-admin": "^5.8.2"
+    "firebase-admin": "^5.8.2",
+    "express": "~4.0.0",
+    "body-parser": "~1.0.1"
   },
   "devDependencies": {},
   "scripts": {
