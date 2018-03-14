@@ -33,11 +33,17 @@ router.get('/', function(req, res) {
     res.json({ message: 'Server is up and running' });   
 });
 
+router.post('/profile', function(req, res) {
+	profileModule.profile_changed_listener();
+	//console.log(req);
+    res.json({ message: 'Requested by application' });   
+});
+
 app.use('/service', router);
 
 app.listen(port);
 console.log('Magic happens on port ' + port);
-profileModule.profile_changed_listener();
+//profileModule.profile_changed_listener();
 
 
 
