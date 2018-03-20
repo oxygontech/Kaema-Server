@@ -74,6 +74,16 @@ exports.profile_changed_listener=function (admin){
           receivedUserProfile:profile
         });
       });
+
+
+      var leaderUserRef=db.ref("/leader_board");
+      leaderUserRef.orderByChild("userId").equalTo(snapshot.key).once("child_added", function(leaderList) {
+        
+        var updatePostRef=db.ref("leader_board/"+leaderList.key);
+        updatePostRef.update({
+          userProfile:profile
+        });
+      });
       
     });
 }
