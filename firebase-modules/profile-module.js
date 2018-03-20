@@ -1,18 +1,18 @@
-var admin = require("firebase-admin");
+/*var admin = require("firebase-admin");
 
 var serviceAccount = require(".././kaema-159c6-firebase-adminsdk-phdnc-9a139dbaf7.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://kaema-159c6.firebaseio.com"
-});
+});*/
 
 
 
 
 
 
-exports.profile_changed_listener=function (){
+exports.profile_changed_listener=function (admin){
 
     var db = admin.database();
     var ref = db.ref("/profile");
@@ -72,6 +72,16 @@ exports.profile_changed_listener=function (){
         var updatePostRef=db.ref("shared/"+sharedList.key);
         updatePostRef.update({
           receivedUserProfile:profile
+        });
+      });
+
+
+      var leaderUserRef=db.ref("/leader_board");
+      leaderUserRef.orderByChild("userId").equalTo(snapshot.key).once("child_added", function(leaderList) {
+        
+        var updatePostRef=db.ref("leader_board/"+leaderList.key);
+        updatePostRef.update({
+          userProfile:profile
         });
       });
       
