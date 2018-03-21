@@ -14,21 +14,21 @@ var finalSharedScore=100;
 var finalReceivedScore=10;
 
 //this function will listen for new Sharing events award points to User when they Share Food
-exports.share_scoring=function (admin,shareObj){
+exports.share_scoring=function (admin){
 
     var db = admin.database();
-    //var ref = db.ref("/shared");
+    var ref = db.ref("/shared");
 
   //  console.log('Reached here');
 
     
- //   ref.on("child_added", function(snapshot) {
+    ref.on("child_added", function(snapshot) {
    
 
 
 //console.log(snapshot.val());
 
-      var shared= shareObj;
+      var shared= snapshot.val();
       var sharedUserNewScore=0;
       var sharedUserScore=0;
       var receivedUserScore=0;
@@ -153,7 +153,7 @@ exports.share_scoring=function (admin,shareObj){
 
 	
 	
-   // });
+    });
 
 
 }
