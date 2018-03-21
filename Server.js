@@ -1,23 +1,37 @@
 var http = require('http');
-var profileModule=require('./firebase-modules/profile-module.js');
+
+var profileModule =require('./firebase-modules/profile-module.js');
+var scoreModule   =require('./firebase-modules/score-module.js');
 
 var express    = require('express');
 var app        = express();
 var bodyParser = require('body-parser');
 
-
+var admin = require("firebase-admin");
+var serviceAccount = require("./kaema-159c6-firebase-adminsdk-phdnc-9a139dbaf7.json");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://kaema-159c6.firebaseio.com"
+});
 var router = express.Router();
 var port = process.env.PORT || 1337;
-
-app.use(bodyParser.json());
+//app.use(bodyParser.json,next());
 // Add headers
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
+
+
+
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8100');
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET');
+    res.setHeader('Access-Control-Allow-Methods', 'POST');
 
     // Request headers you wish to allow
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
@@ -34,12 +48,13 @@ app.get('/', function(req, res) {
     res.json({ message: 'Server is up and running' });
 });
 
+
+//listen to Profile updates
 router.post('/profile', function(req, res) {
-	profileModule.profile_changed_listener();
+	profileModule.profile_changed_listener(admin);
 	//console.log(req);
     res.json({ message: 'Requested by application' });
 });
-
 
 //this will send the weight of the bin to the firebase.
 app.post('/binweight', function(req, res) {
@@ -48,8 +63,14 @@ app.post('/binweight', function(req, res) {
 	//console.log(req);
  res.json({ "message": 'Weight Recieved' });
 });
-
 //app.use('/service', router);
+//listen to shares
+router.post('/share', function(req, res) {
+	//console.log(req.body);
+	scoreModule.share_scoring(admin,req.body);
+    res.json({ message: 'Requested by application' });
+});
+app.use('/service', router);
 
 app.listen(port);
 console.log('Magic happens on port ' + port);
