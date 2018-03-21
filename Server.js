@@ -1,14 +1,15 @@
 var http = require('http');
 var profileModule=require('./firebase-modules/profile-module.js');
 
-var express    = require('express');        
-var app        = express();                 
+var express    = require('express');
+var app        = express();
 var bodyParser = require('body-parser');
 
 
-var router = express.Router(); 
+var router = express.Router();
 var port = process.env.PORT || 1337;
 
+app.use(bodyParser.json());
 // Add headers
 app.use(function (req, res, next) {
 
@@ -29,17 +30,26 @@ app.use(function (req, res, next) {
     next();
 });
 
-router.get('/', function(req, res) {
-    res.json({ message: 'Server is up and running' });   
+app.get('/', function(req, res) {
+    res.json({ message: 'Server is up and running' });
 });
 
 router.post('/profile', function(req, res) {
 	profileModule.profile_changed_listener();
 	//console.log(req);
-    res.json({ message: 'Requested by application' });   
+    res.json({ message: 'Requested by application' });
 });
 
-app.use('/service', router);
+
+//this will send the weight of the bin to the firebase.
+app.post('/binweight', function(req, res) {
+  console.log("Kaema");
+	console.log(JSON.stringify(req.body));
+	//console.log(req);
+ res.json({ "message": 'Weight Recieved' });
+});
+
+//app.use('/service', router);
 
 app.listen(port);
 console.log('Magic happens on port ' + port);
@@ -52,7 +62,7 @@ console.log('Magic happens on port ' + port);
 
     response.writeHead(200, {"Content-Type": "text/plain"});
     response.end("Hello From Kaema!");
-    
+
 
 });
 
