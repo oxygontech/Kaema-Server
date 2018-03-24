@@ -22,11 +22,11 @@ exports.share_scoring=function (admin){
   //  console.log('Reached here');
 
     
-    ref.on("child_added", function(snapshot) {
+    ref.orderByChild("scoreStatus").equalTo('N').on("child_added", function(snapshot) {
    
 
 
-//console.log(snapshot.val());
+      console.log(snapshot.key);
 
       var shared= snapshot.val();
       var sharedUserNewScore=0;
@@ -149,11 +149,37 @@ exports.share_scoring=function (admin){
       });
 
 
+        var updateshareRef=db.ref("shared/"+snapshot.key);
+        updateshareRef.update({
+          scoreStatus:'Y'
+        });
 
 
 	
 	
     });
 
+
+}
+
+
+exports.save_profile_stats=function (admin){
+
+  var db = admin.database();
+  var receivedUserRef=db.ref("/profile");
+      
+      receivedUserRef.on("child_added", function(profile) {
+      
+      var leader_boardRef = db.ref("profile_stats/");
+      leader_boardRef.child(profile.key).set({
+
+                userId:profile.key,
+                post:0,
+                share:0,
+                receipt:0
+
+      });
+
+      });
 
 }

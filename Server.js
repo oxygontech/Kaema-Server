@@ -71,6 +71,16 @@ router.post('/share', function(req, res) {
 	scoreModule.share_scoring(admin);
     res.json({ message: 'Requested by application' });
 });
+
+
+/*router.get('/profile_stats', function(req, res) {
+	//console.log(req.body);
+	scoreModule.save_profile_stats(admin);
+    res.json({ message: 'Requested by application' });
+});*/
+
+
+
 app.use('/service', router);
 
 app.listen(port);
