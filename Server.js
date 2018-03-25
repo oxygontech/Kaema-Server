@@ -87,7 +87,7 @@ app.listen(port);
 console.log('Magic happens on port ' + port);
 //profileModule.profile_changed_listener();
 
-
+//profileModule.profile_changed_listener(admin);
 
 
 /*var server = http.createServer(function(request, response) {

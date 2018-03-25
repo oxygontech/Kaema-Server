@@ -18,7 +18,7 @@ exports.profile_changed_listener=function (admin){
 
 
       var postRef=db.ref("/post");
-      postRef.orderByChild("userId").equalTo(snapshot.key).once("child_added", function(postList) {
+      postRef.orderByChild("userId").equalTo(snapshot.key).on("child_added", function(postList) {
 
         console.log('this is the Post: '+postList.key);
 
@@ -31,30 +31,31 @@ exports.profile_changed_listener=function (admin){
 
 
       var requestRef=db.ref("/request");
-      requestRef.orderByChild("postedUser").equalTo(snapshot.key).once("child_added", function(requestList) {
+      requestRef.orderByChild("postedUser").equalTo(snapshot.key).on("child_added", function(requestList) {
 
-        var updatePostRef=db.ref("request/"+requestList.key+"/post");
-        updatePostRef.update({
+        var updateRequestRef=db.ref("request/"+requestList.key+"/post");
+        updateRequestRef.update({
           userProfile:profile
         });
       });
 
 
       var sharedRef=db.ref("/shared");
-      sharedRef.orderByChild("sharedUser").equalTo(snapshot.key).once("child_added", function(sharedList) {
+      sharedRef.orderByChild("sharedUser").equalTo(snapshot.key).on("child_added", function(sharedList) {
 
-        var updatePostRef=db.ref("shared/"+sharedList.key+"/post");
-        updatePostRef.update({
+        console.log(sharedList.key);
+        var updateSharedRef=db.ref("shared/"+sharedList.key+"/post");
+        updateSharedRef.update({
           userProfile:profile
         });
       });
 
 
       var requestedUserRef=db.ref("/request");
-      requestedUserRef.orderByChild("requestedUser").equalTo(snapshot.key).once("child_added", function(sharedList) {
+      requestedUserRef.orderByChild("requestedUser").equalTo(snapshot.key).on("child_added", function(sharedList) {
 
-        var updatePostRef=db.ref("request/"+sharedList.key);
-        updatePostRef.update({
+        var updateRequestedUserRef=db.ref("request/"+sharedList.key);
+        updateRequestedUserRef.update({
           requestedUserProfile:profile
         });
       });
@@ -62,10 +63,11 @@ exports.profile_changed_listener=function (admin){
 
 
       var sharedUserRef=db.ref("/shared");
-      sharedUserRef.orderByChild("receivedUser").equalTo(snapshot.key).once("child_added", function(sharedList) {
+      sharedUserRef.orderByChild("receivedUser").equalTo(snapshot.key).on("child_added", function(sharedList) {
 
-        var updatePostRef=db.ref("shared/"+sharedList.key);
-        updatePostRef.update({
+        
+        var updateSharedUserRef=db.ref("shared/"+sharedList.key);
+        updateSharedUserRef.update({
           receivedUserProfile:profile
         });
       });
@@ -74,8 +76,8 @@ exports.profile_changed_listener=function (admin){
       var leaderUserRef=db.ref("/leader_board");
       leaderUserRef.orderByChild("userId").equalTo(snapshot.key).once("child_added", function(leaderList) {
 
-        var updatePostRef=db.ref("leader_board/"+leaderList.key);
-        updatePostRef.update({
+        var updateLeaderUserRef=db.ref("leader_board/"+leaderList.key);
+        updateLeaderUserRef.update({
           userProfile:profile
         });
       });
