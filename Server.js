@@ -1,5 +1,4 @@
 var http = require('http');
-
 var profileModule =require('./firebase-modules/profile-module.js');
 var scoreModule   =require('./firebase-modules/score-module.js');
 var firebaseWasteMonitor  =require('./firebase-modules/firebase-wastemonitor.js');
@@ -28,6 +27,7 @@ app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8100');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET');
@@ -68,16 +68,26 @@ app.post('/binweight', function(req, res) {
 //listen to shares
 router.post('/share', function(req, res) {
 	//console.log(req.body);
-	scoreModule.share_scoring(admin,req.body);
+	scoreModule.share_scoring(admin);
     res.json({ message: 'Requested by application' });
 });
+
+
+/*router.get('/profile_stats', function(req, res) {
+	//console.log(req.body);
+	scoreModule.save_profile_stats(admin);
+    res.json({ message: 'Requested by application' });
+});*/
+
+
+
 app.use('/service', router);
 
 app.listen(port);
 console.log('Magic happens on port ' + port);
 //profileModule.profile_changed_listener();
 
-
+//profileModule.profile_changed_listener(admin);
 
 
 /*var server = http.createServer(function(request, response) {

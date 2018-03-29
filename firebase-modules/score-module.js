@@ -14,21 +14,27 @@ var finalSharedScore=100;
 var finalReceivedScore=10;
 
 //this function will listen for new Sharing events award points to User when they Share Food
-exports.share_scoring=function (admin,shareObj){
+exports.share_scoring=function (admin){
 
     var db = admin.database();
-    //var ref = db.ref("/shared");
+    var ref = db.ref("/shared");
 
   //  console.log('Reached here');
 
+<<<<<<< HEAD
 
  //   ref.on("child_added", function(snapshot) {
 
+=======
+    
+    ref.orderByChild("scoreStatus").equalTo('N').on("child_added", function(snapshot) {
+   
+>>>>>>> b8c56f155b0828df19da80e138491523774db439
 
 
-//console.log(snapshot.val());
+      console.log(snapshot.key);
 
-      var shared= shareObj;
+      var shared= snapshot.val();
       var sharedUserNewScore=0;
       var sharedUserScore=0;
       var receivedUserScore=0;
@@ -150,11 +156,43 @@ exports.share_scoring=function (admin,shareObj){
       });
 
 
+        var updateshareRef=db.ref("shared/"+snapshot.key);
+        updateshareRef.update({
+          scoreStatus:'Y'
+        });
 
 
+<<<<<<< HEAD
 
 
    // });
+=======
+	
+	
+    });
 
+
+}
+
+
+exports.save_profile_stats=function (admin){
+
+  var db = admin.database();
+  var receivedUserRef=db.ref("/profile");
+      
+      receivedUserRef.on("child_added", function(profile) {
+      
+      var leader_boardRef = db.ref("profile_stats/");
+      leader_boardRef.child(profile.key).set({
+
+                userId:profile.key,
+                post:0,
+                share:0,
+                receipt:0
+>>>>>>> b8c56f155b0828df19da80e138491523774db439
+
+      });
+
+      });
 
 }
