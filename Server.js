@@ -2,7 +2,7 @@ var http = require('http');
 
 var profileModule =require('./firebase-modules/profile-module.js');
 var scoreModule   =require('./firebase-modules/score-module.js');
-
+var firebaseWasteMonitor  =require('./firebase-modules/firebase-wastemonitor.js');
 var express    = require('express');
 var app        = express();
 var bodyParser = require('body-parser');
@@ -60,6 +60,7 @@ router.post('/profile', function(req, res) {
 app.post('/binweight', function(req, res) {
   console.log("Kaema");
 	console.log(JSON.stringify(req.body));
+  firebaseWasteMonitor.post_reading(admin,req.body);
 	//console.log(req);
  res.json({ "message": 'Weight Recieved' });
 });

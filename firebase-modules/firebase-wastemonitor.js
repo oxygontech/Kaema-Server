@@ -1,6 +1,13 @@
-var admin = require("firebase-admin");
-var serviceAccount = require(".././kaema-159c6-firebase-adminsdk-phdnc-9a139dbaf7.json");
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://kaema-159c6.firebaseio.com"
-});
+exports.post_reading = function (admin,readingObj){
+console.log(readingObj);
+var db = admin.database();
+//assinging the name of the db ref to a variable
+var leader_boardRef = db.ref("current_reading/");
+leader_boardRef.child(readingObj.binId).set({
+          weight:parseInt(readingObj.weight)
+          //userId:shared.post.userId,
+        //  userProfile:shared.post.userProfile
+
+        });
+
+}

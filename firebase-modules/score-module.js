@@ -21,9 +21,9 @@ exports.share_scoring=function (admin,shareObj){
 
   //  console.log('Reached here');
 
-    
+
  //   ref.on("child_added", function(snapshot) {
-   
+
 
 
 //console.log(snapshot.val());
@@ -38,21 +38,21 @@ exports.share_scoring=function (admin,shareObj){
 //zero points will be awarded if the number of times a post has been shared is has exceeded a certain limit
       if(shares>0){
          sharedUserNewScore=finalSharedScore/shares;
-      }else{        
+      }else{
         sharedUserNewScore=finalSharedScore;
       }
 
 
-   
+
      var requestedUserRef=db.ref("/leader_board");
      var checkExist=false;
 
-     
+
       requestedUserRef.orderByChild("userId").equalTo(shared.post.userId).once("child_added", function(leaderBoardUser) {
-      
-     
+
+
      try{
-        console.log(leaderBoardUser.key);  
+        console.log(leaderBoardUser.key);
         sharedUserScore=leaderBoardUser.val().score;
 
 
@@ -74,11 +74,12 @@ exports.share_scoring=function (admin,shareObj){
     }
 
 
-      /* if(!checkExist){
+      if(!checkExist){
 			      //	console.log('Code has come here after exception');
 
-                
+
 			var leader_boardRef = db.ref("leader_board/");
+
 			leader_boardRef.child(shared.post.userId).set({
 
 				      score:parseInt(sharedUserNewScore),
@@ -87,7 +88,7 @@ exports.share_scoring=function (admin,shareObj){
 
 			});
 			  
-			}*/
+			}
 
 
 
@@ -95,18 +96,18 @@ exports.share_scoring=function (admin,shareObj){
       });
 
 
-    
 
 
 
-          
+
+
 
      var receivedUserRef=db.ref("/leader_board");
       checkreceiverExist=false;
       receivedUserRef.orderByChild("userId").equalTo(shared.receivedUser).once("child_added", function(leaderBoardUser) {
-      
+
       try{
-        //console.log(leaderBoardUser.key);  
+        //console.log(leaderBoardUser.key);
         requestedUserScore=leaderBoardUser.val().score;
 
 
@@ -131,7 +132,7 @@ exports.share_scoring=function (admin,shareObj){
      /*  if(!checkreceiverExist){
 			      //	console.log('Code has come here after exception');
 
-                
+
 			var leader_boardRef = db.ref("leader_board/");
 			leader_boardRef.child(shared.receivedUser).set({
 
@@ -140,7 +141,7 @@ exports.share_scoring=function (admin,shareObj){
 			          userProfile:shared.receivedUserProfile
 
 			});
-			  
+
 			}*/
 
 
@@ -151,8 +152,8 @@ exports.share_scoring=function (admin,shareObj){
 
 
 
-	
-	
+
+
    // });
 
 
