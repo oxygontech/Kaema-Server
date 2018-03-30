@@ -124,8 +124,9 @@ exports.share_scoring=function (admin){
        checkreceiverExist=true;
        console.log("Catch Exception  "+e);
     }
-});
 
+
+  });
 
         var updateshareRef=db.ref("shared/"+snapshot.key);
         updateshareRef.update({
@@ -136,9 +137,11 @@ exports.share_scoring=function (admin){
 
 	
 	
+  
+
     });
 
-
+  });
 }
 
 
@@ -162,7 +165,7 @@ exports.save_profile_stats=function (admin){
                 receipt:0
 
 
-      });
+         });
 
       });
 }
