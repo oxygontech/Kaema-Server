@@ -21,24 +21,25 @@ exports.share_scoring=function (admin){
 
   //  console.log('Reached here');
 
-<<<<<<< HEAD
 
- //   ref.on("child_added", function(snapshot) {
+    //listening to changes on firebase
+    ref.on("child_added", function(snapshot) {
 
-=======
     
     ref.orderByChild("scoreStatus").equalTo('N').on("child_added", function(snapshot) {
-   
->>>>>>> b8c56f155b0828df19da80e138491523774db439
 
 
-      console.log(snapshot.key);
+
+
+//console.log(snapshot.val());
+//once the event is triggered variables are assigned values
+
 
       var shared= snapshot.val();
       var sharedUserNewScore=0;
       var sharedUserScore=0;
       var receivedUserScore=0;
-      //getting the amount time this post has been shared
+      //getting the amount of times this post has been shared
       var shares=parseInt(shared.post.shares);
 
 //zero points will be awarded if the number of times a post has been shared is has exceeded a certain limit
@@ -50,11 +51,13 @@ exports.share_scoring=function (admin){
 
 
 
+
+    //getting the reuquired user's leaderboard reference 
      var requestedUserRef=db.ref("/leader_board");
      var checkExist=false;
 
 
-      requestedUserRef.orderByChild("userId").equalTo(shared.post.userId).once("child_added", function(leaderBoardUser) {
+      requestedUserRef.orderByChild("userId").equalTo(shared.post.userId).on("child_added", function(leaderBoardUser) {
 
 
      try{
@@ -65,9 +68,12 @@ exports.share_scoring=function (admin){
 
         console.log('Score :' +sharedUserScore);
 
+        //calculating the final score
         var finalScore=parseInt(sharedUserScore)+parseInt(sharedUserNewScore);
         //console.log('New Score : '+ answer);
 
+
+        //updating the leaderboard
        var updatesharedUserRef=db.ref("leader_board/"+leaderBoardUser.val().userId);
         updatesharedUserRef.update({
           score:finalScore
@@ -80,32 +86,17 @@ exports.share_scoring=function (admin){
     }
 
 
-      if(!checkExist){
-			      //	console.log('Code has come here after exception');
-
-
-			var leader_boardRef = db.ref("leader_board/");
-
-			leader_boardRef.child(shared.post.userId).set({
-
-				      score:parseInt(sharedUserNewScore),
-			          userId:shared.post.userId,
-			          userProfile:shared.post.userProfile
-
+      
 			});
 			  
-			}
-
-
-
-
-      });
+	
 
 
 
 
 
 
+        //leaderboard update for received user aswell,Score for receiving is lower tha for sharing  
 
 
      var receivedUserRef=db.ref("/leader_board");
@@ -133,27 +124,7 @@ exports.share_scoring=function (admin){
        checkreceiverExist=true;
        console.log("Catch Exception  "+e);
     }
-
-
-     /*  if(!checkreceiverExist){
-			      //	console.log('Code has come here after exception');
-
-
-			var leader_boardRef = db.ref("leader_board/");
-			leader_boardRef.child(shared.receivedUser).set({
-
-				      score:parseInt(finalReceivedScore),
-			          userId:shared.receivedUser,
-			          userProfile:shared.receivedUserProfile
-
-			});
-
-			}*/
-
-
-
-
-      });
+});
 
 
         var updateshareRef=db.ref("shared/"+snapshot.key);
@@ -162,17 +133,17 @@ exports.share_scoring=function (admin){
         });
 
 
-<<<<<<< HEAD
 
-
-   // });
-=======
 	
 	
     });
 
 
 }
+
+
+
+
 
 
 exports.save_profile_stats=function (admin){
@@ -189,10 +160,9 @@ exports.save_profile_stats=function (admin){
                 post:0,
                 share:0,
                 receipt:0
->>>>>>> b8c56f155b0828df19da80e138491523774db439
+
 
       });
 
       });
-
 }
