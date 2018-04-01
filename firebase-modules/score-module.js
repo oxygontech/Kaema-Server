@@ -57,7 +57,7 @@ exports.share_scoring=function (admin){
      var checkExist=false;
 
 
-      requestedUserRef.orderByChild("userId").equalTo(shared.post.userId).on("child_added", function(leaderBoardUser) {
+      requestedUserRef.orderByChild("userId").equalTo(shared.post.userId).once("child_added", function(leaderBoardUser) {
 
 
      try{
