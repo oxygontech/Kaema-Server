@@ -50,7 +50,7 @@ exports.share_scoring=function (admin){
       }
 
 
-
+  console.log('New Score : '+sharedUserNewScore);
 
     //getting the reuquired user's leaderboard reference 
      var requestedUserRef=db.ref("/leader_board");
@@ -66,12 +66,14 @@ exports.share_scoring=function (admin){
 
 
 
-        console.log('Score :' +sharedUserScore);
+        console.log('Old Score :' +sharedUserScore);
 
         //calculating the final score
         var finalScore=parseInt(sharedUserScore)+parseInt(sharedUserNewScore);
         //console.log('New Score : '+ answer);
 
+
+        console.log('Final Score :' +finalScore);
 
         //updating the leaderboard
        var updatesharedUserRef=db.ref("leader_board/"+leaderBoardUser.val().userId);
