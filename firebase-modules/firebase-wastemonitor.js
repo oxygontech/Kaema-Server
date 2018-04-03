@@ -7,7 +7,6 @@ leader_boardRef.child(readingObj.binId).set({
           weight:parseInt(readingObj.weight),
           height:parseInt(readingObj.height),
           door:parseInt(readingObj.door)
-        //  userProfile:shared.post.userProfile
         });
 
 }

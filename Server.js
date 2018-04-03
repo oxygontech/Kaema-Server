@@ -5,7 +5,6 @@ var firebaseWasteMonitor  =require('./firebase-modules/firebase-wastemonitor.js'
 var express    = require('express');
 var app        = express();
 var bodyParser = require('body-parser');
-
 var admin = require("firebase-admin");
 var serviceAccount = require("./kaema-159c6-firebase-adminsdk-phdnc-9a139dbaf7.json");
 admin.initializeApp({
@@ -14,17 +13,19 @@ admin.initializeApp({
 });
 var router = express.Router();
 var port = process.env.PORT || 1337;
+/**
+   * ***************SECURITY RISK*************
+   * 1.Prevented direct access by using a router and changing the url, also groups services under one url - resolved.
+   *
+   *
+   */
 //app.use(bodyParser.json,next());
 // Add headers
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
-
-
-
 app.use(function (req, res, next) {
-
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8100');
@@ -48,7 +49,6 @@ app.get('/', function(req, res) {
     res.json({ message: 'Server is up and running' });
 });
 
-
 //listen to Profile updates
 router.post('/profile', function(req, res) {
 	profileModule.profile_changed_listener(admin);
@@ -70,37 +70,7 @@ router.post('/share', function(req, res) {
 	scoreModule.share_scoring(admin);
     res.json({ message: 'Requested by application' });
 });
-
-
-/*router.get('/profile_stats', function(req, res) {
-	//console.log(req.body);
-	scoreModule.save_profile_stats(admin);
-    res.json({ message: 'Requested by application' });
-});*/
-
-
-
 app.use('/service', router);
 
 app.listen(port);
 console.log('Magic happens on port ' + port);
-//profileModule.profile_changed_listener();
-
-//profileModule.profile_changed_listener(admin);
-
-
-/*var server = http.createServer(function(request, response) {
-
-    response.writeHead(200, {"Content-Type": "text/plain"});
-    response.end("Hello From Kaema!");
-
-
-});
-
-
-
-var port = process.env.PORT || 1337;
-server.listen(port);
-profileModule.profile_changed_listener();
-
-console.log("Server running at http://localhost:%d", port);*/
