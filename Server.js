@@ -57,7 +57,7 @@ router.post('/profile', function(req, res) {
 });
 
 //this will send the weight of the bin to the firebase.
-app.post('/binweight', function(req, res) {
+router.post('/binweight', function(req, res) {
 	console.log(JSON.stringify(req.body));
   firebaseWasteMonitor.post_reading(admin,req.body);
 	//console.log(req);
