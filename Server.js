@@ -68,6 +68,7 @@ router.post('/binweight', function(req, res) {
 router.post('/share', function(req, res) {
 	//console.log(req.body);
 	scoreModule.share_scoring(admin);
+	console.log('Request Received');
     res.json({ message: 'Requested by application' });
 });
 app.use('/service', router);

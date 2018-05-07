@@ -25,8 +25,10 @@ exports.share_scoring=function (admin){
     //listening to changes on firebase
     ref.on("child_added", function(snapshot) {
 
-    
-    ref.orderByChild("scoreStatus").equalTo('N').on("child_added", function(snapshot) {
+      if(snapshot.val().scoreStatus=='N'){
+
+    var newRef= db.ref("/shared");
+    newRef.orderByChild("scoreStatus").equalTo('N').on("child_added", function(snapshot) {
 
 
 
@@ -45,12 +47,14 @@ exports.share_scoring=function (admin){
 //zero points will be awarded if the number of times a post has been shared is has exceeded a certain limit
       if(shares>0){
          sharedUserNewScore=finalSharedScore/shares;
+          console.log('New Score more: '+sharedUserNewScore);
       }else{
         sharedUserNewScore=finalSharedScore;
+         console.log('New Score : '+sharedUserNewScore);
       }
 
 
-  console.log('New Score : '+sharedUserNewScore);
+ 
 
     //getting the reuquired user's leaderboard reference 
      var requestedUserRef=db.ref("/leader_board");
@@ -141,7 +145,8 @@ exports.share_scoring=function (admin){
 	
   
 
-    });
+     });
+    }
 
   });
 }
