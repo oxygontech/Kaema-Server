@@ -81,5 +81,23 @@ exports.profile_changed_listener=function (admin){
         });
       });
 
+       var chatUser1Ref=db.ref("/chat");
+      chatUser1Ref.orderByChild("userId1").equalTo(snapshot.key).once("child_added", function(chatUser1) {
+
+        var updateChatUser1Ref=db.ref("chat/"+chatUser1.key);
+        updateChatUser1Ref.update({
+          userProfile1:profile
+        });
+      });
+
+      var chatUser2Ref=db.ref("/chat");
+      chatUser2Ref.orderByChild("userId2").equalTo(snapshot.key).once("child_added", function(chatUser2) {
+
+        var updateChatUser2Ref=db.ref("chat/"+chatUser2.key);
+        updateChatUser2Ref.update({
+          userProfile1:profile
+        });
+      });
+
     });
 }
