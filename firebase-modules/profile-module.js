@@ -95,7 +95,7 @@ exports.profile_changed_listener=function (admin){
 
         var updateChatUser2Ref=db.ref("chat/"+chatUser2.key);
         updateChatUser2Ref.update({
-          userProfile1:profile
+          userProfile2:profile
         });
       });
 
