@@ -6,10 +6,10 @@ var express    = require('express');
 var app        = express();
 var bodyParser = require('body-parser');
 var admin = require("firebase-admin");
-var serviceAccount = require("./kaema-159c6-firebase-adminsdk-phdnc-9a139dbaf7.json");
+var serviceAccount = require("./kaema-af14c-firebase-adminsdk-jmci7-5a9812c739.json");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://kaema-159c6.firebaseio.com"
+  databaseURL: "https://kaema-af14c.firebaseio.com"
 });
 var router = express.Router();
 var port = process.env.PORT || 1337;
