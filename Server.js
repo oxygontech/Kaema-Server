@@ -71,6 +71,13 @@ router.post('/share', function(req, res) {
 	console.log('Request Received');
     res.json({ message: 'Requested by application' });
 });
+
+router.post('/policy', function(req, res) {
+  //console.log(req.body);
+  
+    console.log('Request Received');
+    res.json({ policy: 'https://www.google.com/' ,term:'https://www.google.com/'});
+});
 app.use('/service', router);
 
 app.listen(port);
