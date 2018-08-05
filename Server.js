@@ -30,7 +30,7 @@ app.use(function (req, res, next) {
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8100');
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8001');
+    //res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8001');
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET');
     res.setHeader('Access-Control-Allow-Methods', 'POST');
@@ -89,7 +89,7 @@ router.post('/notify', function(req, res) {
 router.post('/chat_notify', function(req, res) {
     console.log(JSON.stringify(req.body));
     //console.log(req.chatMessage);
-    notifyModule.notification_chat(admin,req.body.chatMessage,req.body.userId);
+    notifyModule.notification_chat(admin,req.body.chatMessage,req.body.userId,req.body.userName);
     res.json({ message: 'Requested by application' });
 });
 

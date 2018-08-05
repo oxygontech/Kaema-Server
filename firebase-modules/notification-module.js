@@ -4,14 +4,14 @@ exports.notification_share=function (admin,userId){
     var ref = db.ref("/notifications/"+userId);
 
    
-    console.log('Inside notifications module');
+    //console.log('Inside notifications module');
 
     //listening to changes on firebase
     ref.on("child_added", function(snapshot) {
 
 
     if(snapshot.val().notify_status=='N'){
-             console.log(snapshot.val());
+             //console.log(snapshot.val());
 			   
 			   // Notification content
 			    const payload = {
@@ -53,12 +53,12 @@ exports.notification_share=function (admin,userId){
 
 
 
-exports.notification_chat=function (admin,chatMessage,userId){
+exports.notification_chat=function (admin,chatMessage,userId,userName){
 
     var db = admin.database();
     var ref = db.ref("/chat_messages/"+chatMessage);
 
-     console.log(chatMessage);
+    // console.log(chatMessage);
     //listening to changes on firebase
     ref.on("child_added", function(snapshot) {
  
@@ -69,7 +69,7 @@ exports.notification_chat=function (admin,chatMessage,userId){
 			   // Notification content
 			    const payload = {
 			      notification: {
-			          title: 'New Message',
+			          title: 'New Message from '+userName,
 			          body: snapshot.val().text,
 			          tag :'message'
 			      }
@@ -77,7 +77,7 @@ exports.notification_chat=function (admin,chatMessage,userId){
     
        var deviceRef=db.ref("/device")
        deviceRef.orderByChild("userId").equalTo(userId).on("child_added", function(deviceSnap) {
-          console.log(deviceSnap.val());
+          //console.log(deviceSnap.val());
 
           admin.messaging().sendToDevice(deviceSnap.val().token,payload)
 			  .then((response) => {
