@@ -1,6 +1,7 @@
 var http = require('http');
 var profileModule =require('./firebase-modules/profile-module.js');
 var scoreModule   =require('./firebase-modules/score-module.js');
+var notifyModule   =require('./firebase-modules/notification-module.js');
 var firebaseWasteMonitor  =require('./firebase-modules/firebase-wastemonitor.js');
 var express    = require('express');
 var app        = express();
@@ -29,7 +30,7 @@ app.use(function (req, res, next) {
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8100');
-
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8001');
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET');
     res.setHeader('Access-Control-Allow-Methods', 'POST');
@@ -78,7 +79,25 @@ router.post('/policy', function(req, res) {
     console.log('Request Received');
     res.json({ policy: 'https://www.google.com/' ,term:'https://www.google.com/'});
 });
+
+
+router.post('/notify', function(req, res) {
+  notifyModule.notification_share(admin,req.body.userId);
+    res.json({ message: 'Requested by application' });
+});
+
+router.post('/chat_notify', function(req, res) {
+    console.log(JSON.stringify(req.body));
+    //console.log(req.chatMessage);
+    notifyModule.notification_chat(admin,req.body.chatMessage,req.body.userId);
+    res.json({ message: 'Requested by application' });
+});
+
+
+
+
 app.use('/service', router);
 
 app.listen(port);
 console.log('Magic happens on port ' + port);
+ //notifyModule.notification_chat(admin,'ETqlyN17pXbyWJRPHwxeNYH6BWu2_P5sD8EzHYnSgNGts0MFcD9iBWnc2','P5sD8EzHYnSgNGts0MFcD9iBWnc2');
