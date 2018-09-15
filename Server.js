@@ -28,8 +28,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8100');
+    //res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     //res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8001');
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET');
