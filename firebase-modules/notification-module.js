@@ -71,7 +71,8 @@ exports.notification_chat=function (admin,chatMessage,userId,userName){
 			      notification: {
 			          title: 'New Message from '+userName,
 			          body: snapshot.val().text,
-			          tag :'message'
+			          tag :'message',
+			          icon: 'https://firebasestorage.googleapis.com/v0/b/kaema-uat.appspot.com/o/default_images%2Ficon-512.jpg?alt=media&token=693c7071-5768-445e-925c-d2ec1b1c7be8'
 			      }
 			    }
     
