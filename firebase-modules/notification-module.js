@@ -18,7 +18,8 @@ exports.notification_share=function (admin,userId){
 			      notification: {
 			          title: snapshot.val().title,
 			          body: snapshot.val().message,
-			          icon: snapshot.val().notificationImageUrl
+			          icon: 'https://firebasestorage.googleapis.com/v0/b/kaema-uat.appspot.com/o/default_images%2Ficon-notification.png?alt=media&token=746ba915-482b-4fe1-8529-1e22e029eb60',
+			          img_url:snapshot.val().notificationImageUrl
 			      }
 			    }
     
@@ -72,7 +73,7 @@ exports.notification_chat=function (admin,chatMessage,userId,userName){
 			          title: 'New Message from '+userName,
 			          body: snapshot.val().text,
 			          tag :'message',
-			          icon: 'https://firebasestorage.googleapis.com/v0/b/kaema-uat.appspot.com/o/default_images%2Ficon-512.jpg?alt=media&token=693c7071-5768-445e-925c-d2ec1b1c7be8'
+			          icon: 'https://firebasestorage.googleapis.com/v0/b/kaema-uat.appspot.com/o/default_images%2Ficon-notification.png?alt=media&token=746ba915-482b-4fe1-8529-1e22e029eb60'
 			      }
 			    }
     
